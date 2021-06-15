@@ -107,13 +107,6 @@ def write(data, path, *args, **kwargs):
 #---------------------------------------
 
 class NDModel(nddata_base.NDDataBase):
-    def my_attribute(self, attr):
-        """
-        Test if attribute is part of the NDData interface
-        """
-        properties = frozenset(("data", "mask", "unit", "wcs", "unceratainty"))
-        return attr in properties
-
     @property
     def data(self):
         """

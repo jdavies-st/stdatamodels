@@ -646,14 +646,10 @@ class DataModel(properties.ObjectNode, ndmodel.NDModel):
                 self._shape = primary_array.shape
         return self._shape
 
-    def my_attribute(self, attr):
-        properties = frozenset(("shape", "history", "_extra_fits", "schema"))
-        return attr in properties
-
     def __setattr__(self, attr, value):
-        if self.my_attribute(attr):
+        if attr in frozenset(("shape", "history", "_extra_fits", "schema")):
             object.__setattr__(self, attr, value)
-        elif ndmodel.NDModel.my_attribute(self, attr):
+        elif attr in frozenset(("data", "mask", "unit", "wcs", "unceratainty")):
             ndmodel.NDModel.__setattr__(self, attr, value)
         else:
             properties.ObjectNode.__setattr__(self, attr, value)
